@@ -7,38 +7,58 @@ canvas.height = 600;
 // The player
 const playerWidth = 70;
 const playerHeight = 10;
-const player = {
+player = {
   x: canvas.width / 2 - playerWidth / 2,
   y: canvas.height - 20,
   width: playerWidth,
   height: playerHeight,
   color: "#fbf1c7",
+  hitColor: "#cc241d",
   speed: 12,
 };
 
 // The falling blocks
-const blockWidth = 30;
-const blockHeight = 30;
+const blockWidth = 20;
+const blockHeight = 20;
 let blocks = [];
 let score = 0;
 let highScore = getStoredHighScore();
 
+// The special dangerous blocks
+const dangerousBlockWidth = 10;
+const dangerousBlockHeight = 30;
+let dangerousBlocks = [];
+
 // Pause status
 let isPaused = false;
 
-// Generate a random block
+// Generate a random peaceful block
 function generateBlock() {
   const x = Math.random() * (canvas.width - blockWidth);
-  const color = getRandomColor();
   const block = {
     x: x,
     y: 0,
     width: blockWidth,
     height: blockHeight,
-    color: color,
-    speed: 2,
+    color: getRandomColor(),
+    speed: 2 + Math.floor(Math.random() * 3),
+    // speed: 3,
   };
   blocks.push(block);
+}
+
+// Generate a dangerous block
+function generateDangerousBlock() {
+  const x = Math.random() * (canvas.width - dangerousBlockWidth);
+  const dangerousBlock = {
+    x: x,
+    y: 0,
+    width: dangerousBlockWidth,
+    height: dangerousBlockHeight,
+    color: "#9d0006",
+    speed: 5,
+  };
+  dangerousBlocks.push(dangerousBlock);
 }
 
 // Color for the block
@@ -60,6 +80,11 @@ function drawBlocks() {
   blocks.forEach((block) => {
     context.fillStyle = block.color;
     context.fillRect(block.x, block.y, block.width, block.height);
+  });
+
+  dangerousBlocks.forEach((dangerousBlock) => {
+    context.fillStyle = dangerousBlock.color;
+    context.fillRect(dangerousBlock.x, dangerousBlock.y, dangerousBlock.width, dangerousBlock.height);
   });
 }
 
@@ -92,16 +117,23 @@ function update() {
 
       // Check a collision with the player platform
       if (
-        block.y + block.height >= player.y &&
+        block.y + block.height == player.y &&
         block.x >= player.x &&
         block.x + block.width <= player.x + player.width
       ) {
+        // collisionAnimation();
+        // blocks = blocks.filter((b) => b !== block);
         score++;
-        blocks = blocks.filter((b) => b !== block);
+      } else if (
+        block.y + block.height >= player.y && 
+        block.x >= player.x &&
+        block.x + block.width <= player.x + player.width
+      ) {
+        block.height /= 2;
       }
 
       // Remove blocks that reach the bottom
-      if (block.y + block.height >= canvas.height) {
+      if (block.y >= canvas.height) {
         blocks = blocks.filter((b) => b !== block);
       }
 
@@ -112,9 +144,31 @@ function update() {
       }
     });
 
+    // Move the falling dangerous blocks
+    dangerousBlocks.forEach((dangerousBlock) => {
+      dangerousBlock.y += dangerousBlock.speed;
+
+      // Check a collision with the player platform
+      if (
+        dangerousBlock.y + dangerousBlock.height >= player.y &&
+        dangerousBlock.x >= player.x &&
+        dangerousBlock.x + dangerousBlock.width <= player.x + player.width
+      ) {
+        score = (score-10 < 0)?0:score-10;
+        dangerousBlocks = dangerousBlocks.filter((db) => db !== dangerousBlock);
+      }
+
+      // Remove dangerous blocks that reach the bottom
+      if (dangerousBlock.y >= canvas.height) {
+        dangerousBlocks = dangerousBlocks.filter((db) => db !== dangerousBlock);
+      }
+    });
+
     // Generate a new block
-    if (Math.random() < 0.03) {
+    if (Math.random() < 0.02) {
       generateBlock();
+    } else if (Math.random() < 0.005) {
+      generateDangerousBlock();
     }
   }
 
@@ -128,6 +182,11 @@ function update() {
     drawPauseScreen();
   }
 }
+
+// function changePlayerColor() {
+//   context.fillStyle = player.hitColor;
+//   context.fillRect(player.x, player.y, player.width, player.height);
+// }
 
 // Draw the pause screen
 function drawPauseScreen() {
@@ -156,9 +215,9 @@ function getStoredHighScore() {
 
 // Keyboard listener
 document.addEventListener("keydown", (event) => {
-  if (event.key === "ArrowLeft") {
+  if (event.key === "ArrowLeft" || event.key === "h") {
     movePlayer("left");
-  } else if (event.key === "ArrowRight") {
+  } else if (event.key === "ArrowRight" || event.key === "l") {
     movePlayer("right");
   } else if (event.key === " ") {
     togglePause();
