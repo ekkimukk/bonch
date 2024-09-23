@@ -72,7 +72,7 @@ class Projectile {
 
 // Enemies
 class Enemy {
-  constructor({ position }) {
+  constructor({position}) {
     this.velocity = {
       x: 0,
       y: 0,
@@ -162,6 +162,7 @@ class Grid {
   }
 }
 
+let score = 0;
 let gameEnd = false;
 const player = new Player();
 const projectiles = [];
@@ -256,6 +257,7 @@ function enemiesRendering() {
           setTimeout(() => {
             grid.enemies.splice(i, 1);
             projectiles.splice(j, 1);
+            score++;
           }, 0);
         }
       });
@@ -278,6 +280,12 @@ function checkLose() {
   }
 }
 
+function drawScore() {
+  context.fillStyle = "#fbf1c7";
+  context.font = "30px Mononoki Nerd Font";
+  context.fillText("SCORE: " + score, 30, 30);
+}
+
 // Rendering
 function animate() {
   requestAnimationFrame(animate);
@@ -285,6 +293,7 @@ function animate() {
   projectilesRendering();
   enemiesRendering();
   checkLose();
+  drawScore();
   moving();
 }
 setInterval(animate(), 1000/60);
