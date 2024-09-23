@@ -135,14 +135,17 @@ class Grid {
 
     const columns = Math.floor(Math.random() * 9 + 17);
     const rows = Math.floor(Math.random() * 90 + 120);
+    // const columns = 3;
+    // const rows = 3;
     for (let i = 0; i < columns; i++) {
       for (let u = 0; u < rows; u++) {
-        if (Math.random() < 0.4) {
+        if (Math.random() < 0.6) {
+        // if (Math.random() < 1) {
           this.enemies.push(
             new Enemy({
               position:  {
-                x: canvas.width + u*50 - 4,
-                y: canvas.height - (i * 45) + 8,
+                x: canvas.width + u*70 - 4,
+                y: canvas.height - (i * 70),
               }
             })
           );
@@ -159,6 +162,7 @@ class Grid {
   }
 }
 
+let gameEnd = false;
 const player = new Player();
 const projectiles = [];
 const grids = [new Grid()];
@@ -225,8 +229,7 @@ addEventListener("keyup", ({key}) => {
   }
 });
 
-function projectilesRendering() {
-  projectiles.forEach((projectile, index) => {
+function projectilesRendering() { projectiles.forEach((projectile, index) => {
     if (projectile.position.x > canvas.width) {
       setTimeout(() => {
         projectiles.splice(index, 1);
@@ -237,17 +240,42 @@ function projectilesRendering() {
   });
 }
 
-function createEnemy() {
+function enemiesRendering() {
   grids.forEach((grid)=> {
     grid.update();
-    grid.enemies.forEach(enemy => {
+    grid.enemies.forEach((enemy, i) => {
       enemy.update({velocity: grid.velocity});
 
-      projectiles.forEach(projectiles => {
-        // if ()
-      })
+      // Hit condition
+      projectiles.forEach((projectile, j) => {
+        if (
+          projectile.position.x >= enemy.position.x &&
+          projectile.position.y >= enemy.position.y &&
+          projectile.position.y <= enemy.position.y + enemy.width
+        ) {
+          setTimeout(() => {
+            grid.enemies.splice(i, 1);
+            projectiles.splice(j, 1);
+          }, 0);
+        }
+      });
+
+      // Lose condition
+      if (enemy.position.x <= player.position.x + player.width &&
+          enemy.position.y >= player.position.y &&
+          enemy.position.y <= player.position.y + player.height
+      ) {
+        gameEnd = true;
+      }
+
     });
   });
+}
+
+function checkLose() {
+  if (gameEnd) {
+    alert('Game Over!');
+  }
 }
 
 // Rendering
@@ -255,7 +283,8 @@ function animate() {
   requestAnimationFrame(animate);
   player.update();
   projectilesRendering();
-  createEnemy();
+  enemiesRendering();
+  checkLose();
   moving();
 }
 setInterval(animate(), 1000/60);
