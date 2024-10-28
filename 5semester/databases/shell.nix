@@ -1,8 +1,7 @@
 { pkgs ? import <nixpkgs> {} }:
-
-pkgs.mkShell
-{
+  pkgs.mkShell {
     nativeBuildInputs = with pkgs.buildPackages; [
-      swiProlog
+      mysql80
+      php83Extensions.mbstring
     ];
 }

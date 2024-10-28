@@ -9,15 +9,15 @@ parent("Andrey","Danya").
 parent("Andrey","Nina").
 parent("Ira","Danya").
 parent("Ira","Nina").
+
 married("Andrey","Ira").
 
 parent("Vladimir","Andrey").
 parent("Vladimir","Sasha").
 parent("Valentina","Andrey").
 parent("Valentina","Sasha").
-married("Vladimir","Valentina").
 
-brother("Andrey","Sasha").
+married("Vladimir","Valentina").
 
 man("Andrey").
 man("Sasha").
@@ -32,9 +32,9 @@ woman("Ira").
 woman("Valentina").
 
 
-check_married(X, Y):-
-  married(X, Y);
-  married(Y, X).
+check_married(X,Y):-
+  married(X,Y);
+  married(Y,X).
 
 father(X,Y) :-
   parent(X,Y),
@@ -75,7 +75,7 @@ husband(X,Y) :-
 
 aunt(X,Y) :-
   parent(Z,Y),
-  sibling(X,Z),
+  sibling(Z,X),
   woman(X).
 
 uncle(X,Y) :-
@@ -98,16 +98,19 @@ shurin(Y,X) :-
   brother(Y,Z),
   man(Y).
 
-?-father(X,"Nins"),write(X),write(" ").
-?-mother(X,"Danya"),write(X),write(" ").
-?-married("Vladimir","Valentina"),write(" ").
-?-husband("Ira",Y),write(Y),write(" ").
-?-wife(X,"Sasha"),write(X),write(" ").
-?-sister("Nina","Danya"),write(" ").
-?-uncle(X,"Toma"),write(X),write(" ").
-?-aunt(X,"Toma"),write(X),write(" ").
-?-grandfather(X,"Danya"),write(X),write(" ").
-?-grandmother(X,"Danya"),write(X),write(" ").
+dever(X,Y) :-
+  husband(Z,Y),
+  brother(X,Z),
+  man(X),
+  woman(Y).
 
-
+?-father(X,"Nina"),write(X),write("\n").
+?-mother(X,"Danya"),write(X),write("\n").
+?-married("Vladimir","Valentina"),write("\n").
+?-husband(X,"Ira"),write(X),write("\n").
+?-wife(X,"Sasha"),write(X),write("\n").
+?-sister("Nina","Danya"),write("\n").
+?-grandfather(X,"Danya"),write(X),write("\n").
+?-grandmother(X,"Danya"),write(X),write("\n").
+?-dever(X,"Ira"),write(X),write("\n").
 
