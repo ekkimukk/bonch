@@ -1,0 +1,55 @@
+MariaDB [lab3]> CALL createTask('Database optimization', '2009-11-01', @days);
+Query OK, 3 rows affected (0.018 sec)
+
+MariaDB [lab3]> select * from tasks;
++----+-----------------------+--------------------+---------+------+
+| id | taskname              | taskmonth          | taskday | u_id |
++----+-----------------------+--------------------+---------+------+
+|  1 | Database optimization | Task month is: Nov | 1       | NULL |
++----+-----------------------+--------------------+---------+------+
+1 row in set (0.000 sec)
+
+MariaDB [lab3]> SELECT CONCAT('Optimization ', @days);
++----------------------------------+
+| CONCAT('Optimization ', @days)   |
++----------------------------------+
+| Optimization Remains days: -5478 |
++----------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [lab3]> CALL createTask('Database replication ', '2009-09-14', @days);
+Query OK, 3 rows affected (0.110 sec)
+
+MariaDB [lab3]> select * from tasks;
++----+-----------------------+--------------------+---------+------+
+| id | taskname              | taskmonth          | taskday | u_id |
++----+-----------------------+--------------------+---------+------+
+|  1 | Database optimization | Task month is: Nov | 1       | NULL |
+|  2 | Database replication  | Task month is: Sep | 14      | NULL |
++----+-----------------------+--------------------+---------+------+
+2 rows in set (0.000 sec)
+
+Database changed
+MariaDB [lab3]> SELECT CONCAT('Replication ', @days);
++-------------------------------+
+| CONCAT('Replication ', @days) |
++-------------------------------+
+| NULL                          |
++-------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [lab3]> call createTask('my perfect task', '2005-05-05', @days);
+Query OK, 3 rows affected (0.114 sec)
+
+MariaDB [lab3]> select * from tasks;
++----+-----------------------+--------------------+---------+------+
+| id | taskname              | taskmonth          | taskday | u_id |
++----+-----------------------+--------------------+---------+------+
+|  1 | Database optimization | Task month is: Nov | 1       | NULL |
+|  2 | Database replication  | Task month is: Sep | 14      | NULL |
+|  3 | my perfect task       | Task month is: May | 5       | NULL |
++----+-----------------------+--------------------+---------+------+
+3 rows in set (0.000 sec)
+
+MariaDB [lab3]> exit
+Bye

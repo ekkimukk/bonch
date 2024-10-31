@@ -1,0 +1,147 @@
+MariaDB [lab2]> SET AUTOCOMMIT=0;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [lab2]> SELECT * FROM users;
++----+------+------+
+| id | name | d_id |
++----+------+------+
+|  1 | Z    |   65 |
+|  2 | X    |   76 |
+|  3 | C    |   87 |
+|  4 | V    |   98 |
+|  5 | B    |    9 |
+|  6 | B    |    1 |
+|  7 | V    |    4 |
+|  8 | C    |    3 |
+|  9 | X    |    2 |
++----+------+------+
+9 rows in set (0.000 sec)
+
+MariaDB [lab2]> START TRANSACTION;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [lab2]> SAVEPOINT sve_point;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [lab2]> DELETE FROM users;
+Query OK, 9 rows affected (0.000 sec)
+
+MariaDB [lab2]> SELECT * FROM users;
+Empty set (0.000 sec)
+
+MariaDB [lab2]> ROLLBACK TO SAVEPOINT sve_point;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [lab2]> SELECT * FROM users;
++----+------+------+
+| id | name | d_id |
++----+------+------+
+|  1 | Z    |   65 |
+|  2 | X    |   76 |
+|  3 | C    |   87 |
+|  4 | V    |   98 |
+|  5 | B    |    9 |
+|  6 | B    |    1 |
+|  7 | V    |    4 |
+|  8 | C    |    3 |
+|  9 | X    |    2 |
++----+------+------+
+9 rows in set (0.000 sec)
+
+MariaDB [lab2]> DELETE FROM users;
+Query OK, 9 rows affected (0.000 sec)
+
+MariaDB [lab2]> SELECT * FROM users;
+Empty set (0.000 sec)
+
+MariaDB [lab2]> exit;
+Bye
+
+
+------------------------------------------------------------------
+
+
+MariaDB [(none)]> use lab2
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [lab2]> set autocommit=0;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [lab2]> select * from users;
++----+------+------+
+| id | name | d_id |
++----+------+------+
+|  1 | Z    |   65 |
+|  2 | X    |   76 |
+|  3 | C    |   87 |
+|  4 | V    |   98 |
+|  5 | B    |    9 |
+|  6 | B    |    1 |
+|  7 | V    |    4 |
+|  8 | C    |    3 |
+|  9 | X    |    2 |
++----+------+------+
+9 rows in set (0.000 sec)
+
+MariaDB [lab2]> START TRANSACTION;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [lab2]> INSERT INTO users (id, name, d_id) VALUES (100, ‘Antonio’, 1);
+ERROR 1054 (42S22): Unknown column '‘Antonio’' in 'field list'
+MariaDB [lab2]> INSERT INTO users (id, name, d_id) VALUES (100, 'Antonio', 1);
+Query OK, 1 row affected (0.000 sec)
+
+MariaDB [lab2]> COMMIT;
+Query OK, 0 rows affected (0.019 sec)
+
+MariaDB [lab2]> SELECT * FROM users;
++-----+---------+------+
+| id  | name    | d_id |
++-----+---------+------+
+|   1 | Z       |   65 |
+|   2 | X       |   76 |
+|   3 | C       |   87 |
+|   4 | V       |   98 |
+|   5 | B       |    9 |
+|   6 | B       |    1 |
+|   7 | V       |    4 |
+|   8 | C       |    3 |
+|   9 | X       |    2 |
+| 100 | Antonio |    1 |
++-----+---------+------+
+10 rows in set (0.000 sec)
+
+MariaDB [lab2]> exit
+Bye
+
+
+------------------------------------------------------------------
+
+
+MariaDB [(none)]> use lab2
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [lab2]> select * from users;
++-----+---------+------+
+| id  | name    | d_id |
++-----+---------+------+
+|   1 | Z       |   65 |
+|   2 | X       |   76 |
+|   3 | C       |   87 |
+|   4 | V       |   98 |
+|   5 | B       |    9 |
+|   6 | B       |    1 |
+|   7 | V       |    4 |
+|   8 | C       |    3 |
+|   9 | X       |    2 |
+| 100 | Antonio |    1 |
++-----+---------+------+
+10 rows in set (0.000 sec)
+
+MariaDB [lab2]> exit
+Bye
+
