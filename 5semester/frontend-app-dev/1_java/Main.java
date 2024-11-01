@@ -21,6 +21,7 @@ public class Main {
 				}
 			}
 		} while(!input.equalsIgnoreCase("stop"));
+    System.out.println();
 
 		// Entering the phone numbers
 		System.out.println("Enter the phone number (e.g., 8-993-357-46-80)");
@@ -29,45 +30,53 @@ public class Main {
 		do {
 			 input = scanner.nextLine();
 			 if (!input.equalsIgnoreCase("stop")) {
-				tmp += " " + input;
+				tmp += input + " ";
 			 }
 		} while(!input.equalsIgnoreCase("stop"));
 		String[] phoneNumbers = tmp.split(" ");
+    System.out.println();
 		
 		// Sort numbers
-		Map<String, List<String>> groupsAndNumbers = new HashMap<>();
-		for (String number : phoneNumbers) {
-			boolean foundGroup = false;
+    int count;
+    String tmp2 = "";
+    for (String prefix : groups.keySet()) {
+      count = 0;
+      System.out.println(prefix + " (" + groups.get(prefix) + "):");
 
-			for (String prefix : groups.keySet()) {
-				if (number.startsWith(prefix)) {
+      for (String number : phoneNumbers) {
+        if (number.startsWith(prefix)) {
+          System.out.println("-> " + number);
+          count++;
+        }
+      }
+      if (count == 0) {
+        System.out.println("-> no numbers");
+      }
+    }
+    System.out.println();
 
-					if (!groupsAndNumbers.containsKey(prefix)) {
-						groupsAndNumbers.put(prefix, new ArrayList<>());
-					}
+    boolean haveTheGroup;
+    for (String number : phoneNumbers) {
+      haveTheGroup = false;
 
-					groupsAndNumbers.get(prefix).add(number);
-				}
-				foundGroup = true;
-				break;
-			}
+      for (String prefix : groups.keySet()) {
+        if (number.startsWith(prefix)) {
+          haveTheGroup = true;
+          break;
+        }
 
-			if (!foundGroup) {
-				System.out.printf("There is no group for number: ");
-			}
-		}
+      }
+      if (haveTheGroup == false) {
+        tmp2 += number + " ";
+      }
+    }
 
-		for (String prefix : groupsAndNumbers.keySet()) {
-			System.err.println(prefix + ":");
-			for (String number : groupsAndNumbers.get(prefix)) {
-				System.out.println("-> " + number);
-			}
-		}
+		String[] phoneNumbersWithNoGroup = tmp2.split(" ");
 
-		// Output the prefix and group name
-		// for (Map.Entry<String, String> entry : groups.entrySet()) {
-		// 	System.out.println(entry.getKey() + " -> " + entry.getValue());
-		// }
+    System.out.println("Numbers with no group: ");
+    for (String number : phoneNumbersWithNoGroup) {
+      System.out.println("-> " + number);
+    }
 
 		scanner.close();
 	}
