@@ -2,22 +2,24 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        FrequencyDictionary dictionary = new FrequencyDictionary();
+      Dictionary dictionary = new Dictionary();
+      dictionary.addSynonym("sing", "chant");
+      dictionary.addSynonym("sing", "intone");
+      dictionary.addSynonym("man", "male");
+      dictionary.addSynonym("man", "guy");
+      dictionary.addSynonym("man", "gent");
+      dictionary.addSynonym("hallowed", "anointed");
+      dictionary.addSynonym("hallowed", "beatified");
 
-        dictionary.addSynonym("sing", "chant");
-        dictionary.addSynonym("sing", "intone");
-        dictionary.addSynonym("man", "male");
-        dictionary.addSynonym("man", "guy");
-        dictionary.addSynonym("man", "gent");
-        dictionary.addSynonym("muse", "inspiration");
+      // String text = "sing to me of the man, muse, the man of twists and turns, driven time and again off course, once he had plundered the hallowed heights of troy";
+      String text = "sing to man hallowed song";
+      System.out.println(text);
+      
+      Cipher cipher = new Cipher(dictionary);
+      String encryptedText = cipher.encrypt(text);
+      System.out.println(encryptedText);
 
-        for (Map.Entry<String, List<String>> entry : dictionary.entrySet()) {
-            System.out.println(entry.getKey());
-            System.out.println(entry.getValue());
-        }
-
-        // System.out.println(dictionary.());
-
-        String text = "sing to me of the man, muse";
+      String decryptedText = cipher.decrypt(encryptedText);
+      System.out.println(decryptedText);
     }
 }
