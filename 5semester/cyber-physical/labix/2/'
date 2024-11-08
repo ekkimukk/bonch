@@ -58,63 +58,54 @@ eq((X1, Y1), (X2, Y2), K, B) :-
 main(((X1, Y1), (X2, Y2)), ((X3, Y3), (X4, Y4), (X5, Y5))) :-
   eq((X3, Y3), (X4, Y4), K1, B1),
   write("First equation (y = kx + b) is "), nl,
-  write("y = "),write(K1),write("*x + "),write(B1), nl,
-  % format("y = ~f*x + ~f", [K1, B1]), nl,
+  format("y = ~f*x + ~f", [K1, B1]), nl,
   nl,
 
   eq((X4, Y4), (X5, Y5), K2, B2),
   write("Second equation (y = kx + b) is "), nl,
-  write("y = "),write(K2),write("*x + "),write(B2), nl,
-  % format("y = ~f*x + ~f", [K2, B2]), nl,
+  format("y = ~f*x + ~f", [K2, B2]), nl,
   nl,
 
   eq((X5, Y5), (X3, Y3), K3, B3),
   write("Third equation (y = kx + b) is "), nl,
-  write("y = "),write(K3),write("*x + "),write(B3), nl,
-  % format("y = ~f*x + ~f", [K3, B3]), nl,
+  format("y = ~f*x + ~f", [K3, B3]), nl,
   nl,
 
   eq((X1, Y1), (X2, Y2), K4, B4),
   write("Fourth equation (y = kx + b) is "), nl,
-  write("y = "),write(K4),write("*x + "),write(B4), nl,
-  % format("y = ~f*x + ~f", [K4, B4]), nl,
+  format("y = ~f*x + ~f", [K4, B4]), nl,
   nl,
 
-  /* findall( */
-  /*   Point, */
-  /*   ( */
-  /*     (s(K4, B4, K1, B1, X, Y); true), */
-  /*     (s(K4, B4, K2, B2, X, Y); true), */
-  /*     (s(K4, B4, K3, B3, X, Y); true), */
-  /*     Point = (X, Y) */
-  /*   ), */
-  /*   Points */
-  /* ), */
-  /* % print_points(Points). */
-/*  */
+  findall(
+    Point,
+    (
+      (s(K4, B4, K1, B1, X, Y); true),
+      (s(K4, B4, K2, B2, X, Y); true),
+      (s(K4, B4, K3, B3, X, Y); true),
+      Point = (X, Y)
+    ),
+    Points
+  ),
+  % print_points(Points).
+
 
  (
     s(K4, B4, K1, B1, Intersection_x1, Intersection_y1),
-    % format("(~f, ~f) is the intersection point", [Intersection_x1, Intersection_y1]),
-    write("("),write(Intersection_x1),write(", "),write(Intersection_y1),write(") is the intersection point"),nl,
+    format("1(~f, ~f) is the intersection point", [Intersection_x1, Intersection_y1]),
     nl;
     true
   ),
 
   (
     s(K4, B4, K2, B2, Intersection_x2, Intersection_y2),
-    % format("(~f, ~f) is the intersection point", [Intersection_x2, Intersection_y2]),
-    write("("),write(Intersection_x2),write(", "),write(Intersection_y2),write(") is the intersection point"),nl,
+    format("2(~f, ~f) is the intersection point", [Intersection_x2, Intersection_y2]),
     nl;
     true
   ),
 
-  (
-    s(K4, B4, K3, B3, Intersection_x3, Intersection_y3),
-    % format("(~f, ~f) is the intersection point", [Intersection_x3, Intersection_y3]),
-    write("("),write(Intersection_x3),write(", "),write(Intersection_y3),write(") is the intersection point"),nl,
-    nl;
-    true
+  s(K4, B4, K3, B3, Intersection_x3, Intersection_y3),
+  format("3(~f, ~f) is the intersection point", [Intersection_x3, Intersection_y3]),
+  nl
   ),
 
   nl.
