@@ -57,7 +57,7 @@ mother_in_law(X,Y):-
   mother(X, Wife).
 
 uncle(X, Y):-
-  parent(Parent, Y), 
+  parent(Parent, Y),
   brother(X, Parent).
 
 dever(X,Y) :-
@@ -76,6 +76,3 @@ dever(X,Y) :-
 ?-mother_in_law(X,"Dima"),write(X),write(" ").
 ?-uncle(X,"Maks"),write(X),write(" ").
 ?-dever(X,)
-
-
-

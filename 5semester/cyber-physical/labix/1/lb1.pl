@@ -109,8 +109,8 @@ dever(X,Y) :-
 ?-married("Vladimir","Valentina"),write("\n").
 ?-husband(X,"Ira"),write(X),write("\n").
 ?-wife(X,"Sasha"),write(X),write("\n").
-?-sister("Nina","Danya"),write("\n").
+?-sister("Nina","Danya"),write("YES\n").
 ?-grandfather(X,"Danya"),write(X),write("\n").
 ?-grandmother(X,"Danya"),write(X),write("\n").
 ?-dever(X,"Ira"),write(X),write("\n").
-
+?-sister("Toma","Danya"),write("YEAH!\n").
