@@ -1,52 +1,54 @@
+/* Copyright (c) 2024 ekkimukk. All Rights Reserved. */
+
 import java.util.*;
 
 public class Cipher {
-  public final Dictionary dictionary;
+	public String[] encrypt(String[] words) {
+		String[] encryptWords = "".split(" ");
+		// String[] decryptWords = "".split("");
 
-  public Cipher(Dictionary dictionary) {
-    this.dictionary = dictionary;
-  }
-    
-  public String encrypt(String text) {
-    StringBuilder result = new StringBuilder();
-    String[] words = text.split("[\\,\\.\\s+]");
+		for (String word : words) {
+            int key = countOccurrences(word, words);
+            String encryptWord = encrypt(word, key);
+            String decryptWord = decrypt(word, key);
 
-    for (String word : words) {
-      List<String> synonyms = dictionary.getSynonyms(word);
-      if (!synonyms.isEmpty()) {
-        int randomIndex = new Random().nextInt(synonyms.size());
-        result.append(synonyms.get(randomIndex)).append(" ");
-      } else {
-        result.append(word).append(" ");
-      }
+            System.out.print(key + ">" + word + " ");
+            System.out.print(encryptWord + " ");
+            System.out.print(decryptWord + " ");
+		}
+
+		return encryptWords;
+	}
+
+	public int countOccurrences(String word, String[] words) {
+        int count = 0;
+		for (String w : words) {
+            if (w.equals(word))
+                count++;
+		}
+		return count;
+	}
+
+    public String encrypt(String word, int key) {
+        String res = "";
+        for (char c : word.toCharArray()) {
+            if (Character.isLetter(c)) {
+                char base = 'a';
+                c = (char)((c - base + key) % 26 + base);
+            }
+            res += c;
+        }
+        return res;
     }
 
-    return result.toString().trim();
-  }
-  
-  public String decrypt(String text) {
-    StringBuilder result = new StringBuilder();
-    Map<String, String> reverseDictionary = createReverseDictionary(dictionary.synonyms);
-    String[] words = text.split("[\\,\\.\\s+]");
-    
-    for (String word : words) {
-      String originalWord = reverseDictionary.getOrDefault(word, word);
-      result.append(originalWord).append(" ");
+    public String decrypt(String word, int key) {
+        String res = "";
+        for (char c : word.toCharArray()) {
+            char base = 'a';
+            c = (char)((c - base - key + 26) % 26 + base + 1);
+            res += c;
+        }
+        return res;
     }
-
-    return result.toString().trim();
-  }
-
-  public static Map<String, String> createReverseDictionary(Map<String, List<String>> forwardDictionary) {
-    Map<String, String> result = new HashMap<>();
-
-    forwardDictionary.forEach((word, synonyms) -> {
-      for (String synonym : synonyms) {
-        result.put(synonym, word);
-      }
-    });
-    
-    return result;
-  }
 }
 
