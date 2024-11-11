@@ -1,0 +1,34 @@
+<?php
+// Проверяем, была ли отправлена форма
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Получаем введенную строку из формы
+    $string = $_POST['input_string'];
+
+    // Разбиваем строку на отдельные слова
+    $words = preg_split('/\s+/', trim($string));
+
+    // Подсчитываем количество слов
+    $word_count = count($words);
+
+    // Выводим результат
+    echo "<h1>Количество слов в строке: $word_count</h1>";
+} else {
+?>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Количество слов в строке</title>
+</head>
+<body>
+    <h1>Введите строку</h1>
+    <form method="post">
+        <label for="input_string">Строка:</label>
+        <textarea id="input_string" name="input_string" rows="5" cols="50"></textarea><br><br>
+        <button type="submit">Посчитать количество слов</button>
+    </form>
+</body>
+</html>
+<?php
+}
+?>

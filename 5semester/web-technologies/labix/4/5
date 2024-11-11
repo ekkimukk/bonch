@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о сервере</title>
+</head>
+<body>
+    <h1>Информация о сервере</h1>
+    <p><strong>Программное обеспечение сервера:</strong> <?php echo $_SERVER['SERVER_SOFTWARE']; ?></p>
+    <p><strong>Протокол передачи данных:</strong> <?php echo $_SERVER['SERVER_PROTOCOL']; ?></p>
+</body>
+</html>

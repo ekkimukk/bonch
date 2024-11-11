@@ -1,0 +1,4 @@
+<?php
+$currentDate = date('F d // Y H:i:s');
+echo "I say this at $currentDate";
+?>

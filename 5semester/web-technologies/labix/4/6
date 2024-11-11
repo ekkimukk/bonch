@@ -1,0 +1,79 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $surname = $_POST['surname'];
+    $grade1 = $_POST['subject1'];
+    $grade2 = $_POST['subject2'];
+    $grade3 = $_POST['subject3'];
+
+    $averageGrade = round(($grade1 + $grade2 + $grade3) / 3, 2);
+
+    $scholarshipStatus = '';
+    if ($averageGrade >= 4) {
+        $scholarshipStatus = 'Назначена';
+    } else {
+        $scholarshipStatus = 'Отказано';
+    }
+
+    ?>
+    <!DOCTYPE html>
+    <html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>Результаты</title>
+    </head>
+    <body>
+        <h1>Результаты обработки</h1>
+        <p><strong>Фамилия:</strong> <?= htmlspecialchars($surname); ?></p>
+        <table border="1">
+            <tr>
+                <th>Предмет</th>
+                <th>Оценка</th>
+            </tr>
+            <tr>
+                <td>Первый предмет</td>
+                <td><?= htmlspecialchars($grade1); ?></td>
+            </tr>
+            <tr>
+                <td>Второй предмет</td>
+                <td><?= htmlspecialchars($grade2); ?></td>
+            </tr>
+            <tr>
+                <td>Третий предмет</td>
+                <td><?= htmlspecialchars($grade3); ?></td>
+            </tr>
+        </table>
+        <br>
+        <p><strong>Средний балл:</strong> <?= $averageGrade; ?></p>
+        <p><strong>Стипендия:</strong> <?= ucfirst($scholarshipStatus); ?></p>
+    </body>
+    </html>
+    <?php
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Экзаменационные оценки</title>
+</head>
+<body>
+    <h1>Введите фамилию и экзаменационные оценки</h1>
+    <form method="post">
+        <label for="surname">Фамилия:</label>
+        <input type="text" id="surname" name="surname" required><br><br>
+
+        <label for="subject1">Оценка по первому предмету:</label>
+        <input type="number" id="subject1" name="subject1" min="0" max="100" required><br><br>
+
+        <label for="subject2">Оценка по второму предмету:</label>
+        <input type="number" id="subject2" name="subject2" min="0" max="100" required><br><br>
+
+        <label for="subject3">Оценка по третьему предмету:</label>
+        <input type="number" id="subject3" name="subject3" min="0" max="100" required><br><br>
+
+        <button type="submit">Подтвердить</button>
+    </form>
+</body>
+</html>
