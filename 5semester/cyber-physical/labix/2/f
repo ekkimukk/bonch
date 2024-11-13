@@ -1,0 +1,132 @@
+У меня есть следующий код на SWI-Prolog: 
+eq((X1, Y1), (X2, Y2), K, B) :-
+  (
+    X2 \= X1 ->
+        K is (Y2 - Y1) / (X2 - X1),
+        B is Y1 - K * X1
+    ;
+        K is 0,
+        K = 0,
+        Y1 > Y2 ->
+            B is Y2
+        ;
+            B is Y1
+  ).
+
+main(((X1, Y1), (X2, Y2), (X3, Y3)), ((X5, Y5), (X6, Y6), (X7, Y7))) :-
+  eq((X5, Y5), (X6, Y6), K1, B1),
+  write("First equation  (y = kx + b) is "), nl,
+  write("y = "),write(K1),write("*x + "),write(B1), nl,
+  % format("y = ~f*x + ~f", [K1, B1]), nl,
+  nl,
+
+  eq((X6, Y6), (X7, Y7), K2, B2),
+  write("Second equation (y = kx + b) is "), nl,
+  write("y = "),write(K2),write("*x + "),write(B2), nl,
+  % format("y = ~f*x + ~f", [K2, B2]), nl,
+  nl,
+
+  eq((X7, Y7), (X5, Y5), K3, B3),
+  write("Third equation  (y = kx + b) is "), nl,
+  write("y = "),write(K3),write("*x + "),write(B3), nl,
+  % format("y = ~f*x + ~f", [K3, B3]), nl,
+  write("-------------------------------"),
+  nl,
+
+  eq((X1, Y1), (X2, Y2), K4, B4),
+  write("Fourth equation (y = kx + b) is "), nl,
+  write("y = "),write(K4),write("*x + "),write(B4), nl,
+  % format("y = ~f*x + ~f", [K4, B4]), nl,
+  nl,
+
+  eq((X2, Y2), (X3, Y3), K5, B5),
+  write("Fifth equation  (y = kx + b) is "), nl,
+  write("y = "),write(K5),write("*x + "),write(B5), nl,
+  % format("y = ~f*x + ~f", [K5, B5]), nl,
+  nl.
+
+Я ввожу:
+?- main(
+|         ( (2, 6), (2, 2), (4, 2) ),
+|         ( (0, 0), (0, 7), (5, 0) )
+|    ).
+First equation  (y = kx + b) is
+y = _11616*x + 0
+
+Second equation (y = kx + b) is
+y = -1.4*x + 7.0
+
+Third equation  (y = kx + b) is
+y = 0*x + 0
+-------------------------------
+Fourth equation (y = kx + b) is
+y = 0*x + 2
+
+Fifth equation  (y = kx + b) is
+y = 0*x + 2
+
+1#1> (_12312, 2.0) is the intersection point
+
+1#2> (3.5714285714285716, 2.0) is the intersection point
+
+2#1> (_12312, 2.0) is the intersection point
+
+2#2> (3.5714285714285716, 2.0) is the intersection point
+
+
+true ;
+
+true ;
+2#2> (3.5714285714285716, 2.0) is the intersection point
+
+
+true ;
+
+true ;
+2#1> (_12312, 2.0) is the intersection point
+
+2#2> (3.5714285714285716, 2.0) is the intersection point
+
+
+true ;
+
+true ;
+2#2> (3.5714285714285716, 2.0) is the intersection point
+
+
+true ;
+
+true ;
+1#2> (3.5714285714285716, 2.0) is the intersection point
+
+2#1> (_292, 2.0) is the intersection point
+
+2#2> (3.5714285714285716, 2.0) is the intersection point
+
+
+true ;
+
+true ;
+2#2> (3.5714285714285716, 2.0) is the intersection point
+
+
+true ;
+
+true ;
+2#1> (_6564, 2.0) is the intersection point
+
+2#2> (3.5714285714285716, 2.0) is the intersection point
+
+
+true ;
+
+true ;
+2#2> (3.5714285714285716, 2.0) is the intersection point
+
+
+true ;
+
+true.
+
+Почему х не равен нулю? 
+
