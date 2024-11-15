@@ -30,10 +30,9 @@
 %   vectorProduct(P1_x * P2_y - P1_y * P2_x).
 %
 
-findIntersection(Q1, K1, B1, Q2, K2, B2, X, Y) :- (
+findIntersection(Q1, K1, B1, Q2, K2, B2, X, Y) :-
     { K1*X - Q1*Y + B1 =:= 0 },
-    { K2*X - Q2*Y + B2 =:= 0 }
-).
+    { K2*X - Q2*Y + B2 =:= 0 }.
 
 % q*y = k*x + b
 eq((X1, Y1), (X2, Y2), Q, K, B) :- (
@@ -246,9 +245,9 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
                         (null, null), (null, null), (null, null)
         )
     ),
-    % write("1->> "), printList(I1), nl,
-    % write("2->> "), printList(I2), nl,
-    % write("3->> "), printList(I3), nl,
+    write("1->> "), printList(I1), nl,
+    write("2->> "), printList(I2), nl,
+    write("3->> "), printList(I3), nl,
     nl,
 
     % SIDE 2
@@ -300,9 +299,9 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
                         (null, null), (null, null), (null, null)
         )
     ),
-    % write("4->> "), printList(I4), nl,
-    % write("5->> "), printList(I5), nl,
-    % write("6->> "), printList(I6), nl,
+    write("4->> "), printList(I4), nl,
+    write("5->> "), printList(I5), nl,
+    write("6->> "), printList(I6), nl,
     nl,
 
     % SIDE 3
@@ -355,16 +354,16 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
                         (null, null), (null, null), (null, null)
         )
     ),
-    % write("7->> "), printList(I4), nl,
-    % write("8->> "), printList(I5), nl,
-    % write("9->> "), printList(I6), nl,
+    write("7->> "), printList(I4), nl,
+    write("8->> "), printList(I5), nl,
+    write("9->> "), printList(I6), nl,
     nl,
 
     % SIDE 4
     (
         findIntersection(Q1, K1, B1, Q7, K7, B7, Intersection_x10, Intersection_y10),
-        pointInRectangle((Intersection_x10, Intersection_y10), (X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)),
-        pointInTriangle((Intersection_x10, Intersection_y10), (X5, Y5), (X6, Y6), (X7, Y7)),
+        % pointInRectangle((Intersection_x10, Intersection_y10), (X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)),
+        % pointInTriangle((Intersection_x10, Intersection_y10), (X5, Y5), (X6, Y6), (X7, Y7)),
         createList(I10, (null, null), (null, null), (null, null),
                         (null, null), (null, null), (null, null),
                         (null, null), (null, null), (null, null),
@@ -379,8 +378,8 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
     ),
     (
         findIntersection(Q2, K2, B2, Q7, K7, B7, Intersection_x11, Intersection_y11),
-        pointInRectangle((Intersection_x11, Intersection_y11), (X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)),
-        pointInTriangle((Intersection_x11, Intersection_y11), (X5, Y5), (X6, Y6), (X7, Y7)),
+        % pointInRectangle((Intersection_x11, Intersection_y11), (X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)),
+        % pointInTriangle((Intersection_x11, Intersection_y11), (X5, Y5), (X6, Y6), (X7, Y7)),
         createList(I11, (null, null), (null, null), (null, null),
                         (null, null), (null, null), (null, null),
                         (null, null), (null, null), (null, null),
@@ -395,8 +394,8 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
     ),
     (
         findIntersection(Q3, K3, B3, Q7, K7, B7, Intersection_x12, Intersection_y12),
-        pointInRectangle((Intersection_x12, Intersection_y12), (X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)),
-        pointInTriangle((Intersection_x12, Intersection_y12), (X5, Y5), (X6, Y6), (X7, Y7)),
+        % pointInRectangle((Intersection_x12, Intersection_y12), (X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)),
+        % pointInTriangle((Intersection_x12, Intersection_y12), (X5, Y5), (X6, Y6), (X7, Y7)),
         createList(I12, (null, null), (null, null), (null, null),
                         (null, null), (null, null), (null, null),
                         (null, null), (null, null), (null, null),
@@ -409,21 +408,21 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
                         (null, null), (null, null), (null, null)
         )
     ),
-    % write("10->> "), printList(I10), nl,
-    % write("11->> "), printList(I11), nl,
-    % write("12->> "), printList(I12), nl,
-    printList(I1), nl,
-    printList(I2), nl,
-    printList(I3), nl,
-    printList(I4), nl,
-    printList(I5), nl,
-    printList(I6), nl,
-    printList(I7), nl,
-    printList(I8), nl,
-    printList(I9), nl,
-    printList(I10), nl,
-    printList(I11), nl,
-    printList(I12), nl,
+    write("10->> "), printList(I10), nl,
+    write("11->> "), printList(I11), nl,
+    write("12->> "), printList(I12), nl,
+    printList(I1), 
+    printList(I2), 
+    printList(I3), 
+    printList(I4), 
+    printList(I5), 
+    printList(I6), 
+    printList(I7), 
+    printList(I8), 
+    printList(I9), 
+    printList(I10),
+    printList(I11),
+    printList(I12),
 
     combine(I1, I2, R1),
     combine(I3, R2, R3),

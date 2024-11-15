@@ -1,2 +1,2 @@
 all:
-	swipl main.pl < tests/test_8
+	swipl main.pl < tests/test_9
