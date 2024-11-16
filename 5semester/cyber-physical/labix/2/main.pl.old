@@ -2,14 +2,11 @@
 
 % https://grafika.me/node/237
 
-
 % point(X, Y).
 % line(Point1, Point2).
 % vector(Point1, Point2).
 % vectorProduct(V).
-:- (
-    use_module(library(clpr))
-).
+:- use_module(library(clpr)).
 % input() :-
 %   write("Enter the left bottom vertex of the rectangle: "), nl,
 %   read(X),
@@ -31,72 +28,12 @@
 %   vectorProduct(P1_x * P2_y - P1_y * P2_x).
 %
 
-
-% pointInTriangle() :- (
-%     true
-% ).
-
-% combine(A, B, C) :- (
-%     append(A1, Common, A),
-%     append(Common, B1, B),
-%     append([A1, Common, B1], C)
-% ).
-
 findIntersection(Q1, K1, B1, Q2, K2, B2, X, Y) :- (
-    { K1*X + Q1*Y + B1 =:= 0 },
-    { K2*X + Q2*Y + B2 =:= 0 }
+    { Q1*Y + K1*X + B1 =:= 0 },
+    { Q2*Y + K2*X + B2 =:= 0 }
 ).
 
-eq((X1, Y1), (X2, Y2), Q, K, B) :- (
-  Y1 \= Y2 -> (
-    X1 \= X2 -> (
-      Q is -1, 
-      K is (Y2 - Y1) / (X2 - X1),
-      B is Y1 - K * X1
-    ) ; (
-      Q is 0,
-      K is -1,
-      B is X1
-    )
-  ) ; (
-    Q is -1,
-    K is 0,
-    B is Y1
-  )
-).
-
-% qy + k*x + b = 0
-% eq((X1, Y1), (X2, Y2), Q, K, B) :- (
-%     Y1 \= Y2 -> (
-%         X1 \= X2 -> (
-%             Q is 1,
-%             K is (Y2 - Y1) / (X2 - X1),
-%             B is Y1 - K * X1
-%         )
-%         ;(
-%             Q is 0,
-%             K is 1,
-%             B is X1
-%         )
-%     )
-%     ;(
-%         Q is 1,
-%         K is 0,
-%         X1 \= X2 -> (
-%             Y1 > Y2 -> (
-%                 B is Y2
-%             )
-%             ;(
-%                 B is Y1
-%             )
-%         )
-%         ;(
-%             B is Y2
-%         )
-%     )
-% ).
-
-
+% q*y = k*x + b
 
 createList(ListName, (X1,  Y1),  (X2,  Y2),  (X3,  Y3),
                      (X4,  Y4),  (X5,  Y5),  (X6,  Y6),
@@ -178,20 +115,26 @@ pointInTriangle((X, Y), (X1, Y1), (X2, Y2), (X3, Y3)) :- (
     between(MinY, MaxY, Y_)
 ).
 
+% combine(A, B, C) :- (
+%     append(A1, Common, A),
+%     append(Common, B1, B),
+%     append([A1, Common, B1], C)
+% ).
+
 main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :- (
     eq((X5, Y5), (X6, Y6), Q1, K1, B1),
-    % write("First equation  (qy + kx + b = 0) is "), nl,
-    % write(Q1),write("*y + "),write(K1),write("*x + "),write(B1),write(" = 0"), nl,
+    % write("First equation  (qy = kx + b) is "), nl,
+    % write(Q1),write("*y = "),write(K1),write("*x + "),write(B1), nl,
     % format("y = ~f*x + ~f", [K1, B1]), nl,
     % nl,
 
     eq((X6, Y6), (X7, Y7), Q2, K2, B2),
-    % write("Second equation (qy + kx + b = 0) is "), nl,
+    % write("Second equation (qy = kx + b) is "), nl,
     % write(Q2),write("*y = "),write(K2),write("*x + "),write(B2), nl,
     % nl,
 
     eq((X7, Y7), (X5, Y5), Q3, K3, B3),
-    % write("Third equation  (qy + kx + b = 0) is "), nl,
+    % write("Third equation  (qy = kx + b) is "), nl,
     % write(Q3),write("*y = "),write(K3),write("*x + "),write(B3), nl,
     % write("-------------------------------"),
     % nl,
@@ -220,7 +163,7 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
     (
         findIntersection(Q1, K1, B1, Q4, K4, B4, Intersection_x1, Intersection_y1),
         pointInRectangle((Intersection_x1, Intersection_y1), (X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)),
-        pointInTriangle((Intersection_x1, Intersection_y1), (X5, Y5), (X6, Y6), (X7, Y7)),
+        pointInTriangle((Intersection_x1, Intersection_y2), (X5, Y5), (X6, Y6), (X7, Y7)),
         createList(I1,  (Intersection_x1, Intersection_y1), (null, null), (null, null),
                         (null, null),                       (null, null), (null, null),
                         (null, null),                       (null, null), (null, null),
@@ -268,7 +211,7 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
     % write("1->> "), printList(I1), nl,
     % write("2->> "), printList(I2), nl,
     % write("3->> "), printList(I3), nl,
-    % nl,
+    nl,
 
     % SIDE 2
     (
@@ -322,7 +265,7 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
     % write("4->> "), printList(I4), nl,
     % write("5->> "), printList(I5), nl,
     % write("6->> "), printList(I6), nl,
-    % nl,
+    nl,
 
     % SIDE 3
     (
@@ -377,7 +320,7 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
     % write("7->> "), printList(I4), nl,
     % write("8->> "), printList(I5), nl,
     % write("9->> "), printList(I6), nl,
-    % nl,
+    nl,
 
     % SIDE 4
     (
@@ -431,7 +374,7 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
     % write("10->> "), printList(I10), nl,
     % write("11->> "), printList(I11), nl,
     % write("12->> "), printList(I12), nl,
-    printList(I1),  
+    printList(I1), 
     printList(I2), 
     printList(I3), 
     printList(I4), 
@@ -503,7 +446,7 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
   %
 
     nl
-).
+  ).
 
   /* findall( */
   /*   Point, */
