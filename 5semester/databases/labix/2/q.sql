@@ -1,0 +1,19 @@
+SET AUTOCOMMIT=0;
+SELECT * FROM users;
+START TRANSACTION;
+SAVEPOINT save_point;
+DELETE FROM users;
+SELECT * FROM users;
+ROLLBACK TO SAVEPOINT save_point;
+SELECT * FROM users;
+DELETE FROM users;
+SELECT * FROM users;
+
+SET AUTOCOMMIT=0;
+SELECT * FROM users;
+START TRANSACTION;
+INSERT INTO users (id, name, d_id) VALUES (100, 'Antonio', 1);
+COMMIT;
+SELECT * FROM users;
+
+
