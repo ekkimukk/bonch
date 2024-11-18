@@ -3,18 +3,40 @@
 import java.util.*;
 
 public class Cipher {
-	public String[] encrypt(String[] words) {
-		String[] encryptWords = "".split(" ");
-		// String[] decryptWords = "".split("");
+    public String[] addS(String[] arr, String str) {
+        int n = arr.length;
+        String[] newA = new String[n + 1];
+        for (int i = 0; i < n; i++)
+            newA[i] = arr[i];
+        newA[n] = str;
+        return newA;
+    }
 
+	public String[] encrypt(String[] words) {
+		// String[] encryptWords = words.split(" ");
+		// String[] decryptWords = words.split(" ");
+
+        for (String word : words) {
+            System.out.println(word);
+        }
+        System.out.println();
+
+		String[] encryptWords = {""};
 		for (String word : words) {
             int key = countOccurrences(word, words);
             String encryptWord = encrypt(word, key);
-            String decryptWord = decrypt(word, key);
+            encryptWords = addS(encryptWords, encryptWord);
+            System.out.println(encryptWord + " ");
+		}
 
-            System.out.print(key + ">" + word + " ");
-            System.out.print(encryptWord + " ");
-            System.out.print(decryptWord + " ");
+        // for (String word : encryptWords) {
+        //     System.out.println(word);
+        // }
+
+        for (String word : encryptWords) {
+            int key = countOccurrences(word, encryptWords);
+            String decryptWord = decrypt(word, key);
+            System.out.println(decryptWord + " ");
 		}
 
 		return encryptWords;
@@ -45,7 +67,8 @@ public class Cipher {
         String res = "";
         for (char c : word.toCharArray()) {
             char base = 'a';
-            c = (char)((c - base - key + 26) % 26 + base + 1);
+            // System.out.println("(" + c + " - " + base + " - " + key + " + 26) % 26 + " + base +  " + 1");
+            c = (char)((c - base - key + 26) % 26 + base);
             res += c;
         }
         return res;
