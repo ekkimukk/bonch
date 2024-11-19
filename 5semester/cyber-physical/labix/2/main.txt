@@ -176,9 +176,6 @@ pointInTriangle((X, Y), (X1, Y1), (X2, Y2), (X3, Y3)) :- (
     between(MinY, MaxY, Y_)
 ).
 
-round_to_two_digits(Value, RoundedValue) :-
-    RoundedValue is round(Value * 100000) / 100000.
-
 main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :- (
     eq((X5, Y5), (X6, Y6), Q1, K1, B1),
     % write("First equation  (qy + kx + b = 0) is "), nl,
@@ -219,9 +216,7 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
 
     % SIDE 1
     (
-        findIntersection(Q1, K1, B1, Q4, K4, B4, Intersection_x1_, Intersection_y1_),
-        round_to_two_digits(Intersection_x1_, Intersection_x1),
-        round_to_two_digits(Intersection_y1_, Intersection_y1),
+        findIntersection(Q1, K1, B1, Q4, K4, B4, Intersection_x1, Intersection_y1),
         pointInRectangle((Intersection_x1, Intersection_y1), (X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)),
         pointInTriangle((Intersection_x1, Intersection_y1), (X5, Y5), (X6, Y6), (X7, Y7)),
         createList(I1,  (Intersection_x1, Intersection_y1), (null, null), (null, null),
@@ -237,9 +232,7 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
         )
     ),
     (
-        findIntersection(Q2, K2, B2, Q4, K4, B4, Intersection_x2_, Intersection_y2_),
-        round_to_two_digits(Intersection_x2_, Intersection_x2),
-        round_to_two_digits(Intersection_y2_, Intersection_y2),
+        findIntersection(Q2, K2, B2, Q4, K4, B4, Intersection_x2, Intersection_y2),
         pointInRectangle((Intersection_x2, Intersection_y2), (X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)),
         pointInTriangle((Intersection_x2, Intersection_y2), (X5, Y5), (X6, Y6), (X7, Y7)),
         createList(I2,  (null, null), (Intersection_x2, Intersection_y2), (null, null),
@@ -255,9 +248,7 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
         )
     ),
     (
-        findIntersection(Q3, K3, B3, Q4, K4, B4, Intersection_x3_, Intersection_y3_),
-        round_to_two_digits(Intersection_x3_, Intersection_x3),
-        round_to_two_digits(Intersection_y3_, Intersection_y3),
+        findIntersection(Q3, K3, B3, Q4, K4, B4, Intersection_x3, Intersection_y3),
         pointInRectangle((Intersection_x3, Intersection_y3), (X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)),
         pointInTriangle((Intersection_x3, Intersection_y3), (X5, Y5), (X6, Y6), (X7, Y7)),
         createList(I3,  (null, null), (null, null), (Intersection_x3, Intersection_y3),
@@ -438,20 +429,18 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
     write("10->> "), printList(I10), nl,
     write("11->> "), printList(I11), nl,
     write("12->> "), printList(I12), nl,
-
-    nl,
-    printList(I1),  
-    printList(I2), 
-    printList(I3), 
-    printList(I4), 
-    printList(I5), 
-    printList(I6), 
-    printList(I7), 
-    printList(I8), 
-    printList(I9), 
-    printList(I10),
-    printList(I11),
-    printList(I12),
+    % printList(I1),  
+    % printList(I2), 
+    % printList(I3), 
+    % printList(I4), 
+    % printList(I5), 
+    % printList(I6), 
+    % printList(I7), 
+    % printList(I8), 
+    % printList(I9), 
+    % printList(I10),
+    % printList(I11),
+    % printList(I12),
 
     % combine(I1, I2, R1),
     % combine(I3, R2, R3),
