@@ -1,4 +1,5 @@
 % Copyright (c) 2024 ekkimukk. All Rights Reserved.
+% Float хранит 50 чисел после запятой
 
 % https://grafika.me/node/237
 
@@ -14,17 +15,6 @@
 /*   Points */
 /* ), */
 /* % print_points(Points). */
-
-findIntersection(Q1, K1, B1, Q2, K2, B2, X, Y) :- (
-    { K1*X + Q1*Y + B1 =:= 0 },
-    { K2*X + Q2*Y + B2 =:= 0 }
-).
-findIntersection(Q1, K1, B1, Q2, K2, B2, X, Y, X_, Y_) :- (
-    { K1*X + Q1*Y + B1 =:= 0 },
-    { K2*X + Q2*Y + B2 =:= 0 },
-    roundToFiveDigits(X, X_),
-    roundToFiveDigits(Y, Y_)
-).
 
 eq((X1, Y1), (X2, Y2), Q, K, B) :- (
   Y1 \= Y2 -> (
@@ -83,22 +73,22 @@ printList([(X, Y)|Rest]) :- (
 pointInRectangle((X, Y), (X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)) :- (
     MinX1 is min(X1, X2),
     MinX2 is min(MinX1, X3),
-    MinX is min(MinX2, X4),
+    MinX is min(MinX2, X4)*100000000,
     % format("MinX is ~f", [MinX]), nl,
     MaxX1 is max(X1, X2),
     MaxX2 is max(MaxX1, X3),
-    MaxX is max(MaxX2, X4),
+    MaxX is max(MaxX2, X4)*100000000,
     % format("MaxX is ~f", [MaxX]), nl,
     MinY1 is min(Y1, Y2),
     MinY2 is min(MinY1, Y3),
-    MinY is min(MinY2, Y4),
+    MinY is min(MinY2, Y4)*100000000,
     % format("MinY is ~f", [MinY]), nl,
     MaxY1 is max(Y1, Y2),
     MaxY2 is max(MaxY1, Y3),
-    MaxY is max(MaxY2, Y4),
+    MaxY is max(MaxY2, Y4)*100000000,
     % format("MaxY is ~f", [MaxY]), nl,
-    X_ is round(X),
-    Y_ is round(Y),
+    X_ is round(X * 100000000),
+    Y_ is round(Y * 100000000),
     % format("X is ~f; Y is ~f", [X_, Y_]), nl,
     between(MinX, MaxX, X_),
     between(MinY, MaxY, Y_)
@@ -106,19 +96,19 @@ pointInRectangle((X, Y), (X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)) :- (
 
 pointInTriangle((X, Y), (X1, Y1), (X2, Y2), (X3, Y3)) :- (
     MinX1 is min(X1, X2),
-    MinX  is min(MinX1, X3),
+    MinX  is min(MinX1, X3)*100000000,
     % format("MinX is ~f", [MinX]), nl,
     MaxX1 is max(X1, X2),
-    MaxX  is max(MaxX1, X3),
+    MaxX  is max(MaxX1, X3)*100000000,
     % format("MaxX is ~f", [MaxX]), nl,
     MinY1 is min(Y1, Y2),
-    MinY  is min(MinY1, Y3),
+    MinY  is min(MinY1, Y3*100000000),
     % format("MinY is ~f", [MinY]), nl,
     MaxY1 is max(Y1, Y2),
-    MaxY  is max(MaxY1, Y3),
+    MaxY  is max(MaxY1, Y3)*100000000,
     % format("MaxY is ~f", [MaxY]), nl,
-    X_ is round(X),
-    Y_ is round(Y),
+    X_ is round(X * 100000000),
+    Y_ is round(Y * 100000000),
     % format("X is ~f; Y is ~f", [X_, Y_]), nl,
     between(MinX, MaxX, X_),
     between(MinY, MaxY, Y_)
@@ -131,7 +121,26 @@ roundToFiveDigits((X, Y), (Xr, Yr)) :- (
 roundToFiveDigits(Value, RoundedValue) :-
     RoundedValue is float(round(Value * 100000) / 100000).
 
+isRectangle((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)) :- (
+    (
+        V1 is X1 + X3,
+        V2 is X2 + X4,
+        writeln(V1),
+        writeln(V2),
+        V3 is Y1 + Y3,
+        V4 is Y2 + Y4,
+        writeln(V3),
+        writeln(V4),
+        V1 == V2, V3 == V4
+    ); (
+        writeln("THIS IS NOT THE RECTANGLE"),
+        false
+    )
+).
+
 main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :- (
+    isRectangle((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)),
+
     eq((X5, Y5), (X6, Y6), Q1, K1, B1),
     write("First equation  (qy + kx + b = 0) is "), nl,
     write(Q1),write("*y + "),write(K1),write("*x + "),write(B1),write(" = 0"), nl,
@@ -398,17 +407,19 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
     % printList(I10),
     % printList(I11),
     % printList(I12),
-    %
+
     nl,
 
-    setof(
+    findall(
         (X, Y),
         (
             ( % 1 done
+                (
                 findIntersection(Q1, K1, B1, Q4, K4, B4, X, Y),
                 % write(X),write(" >< "),write(Y),nl,
                 pointInRectangle((X, Y), (X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)),
                 pointInTriangle((X, Y), (X5, Y5), (X6, Y6), (X7, Y7))
+                ) ; false 
             );
             (
                 findIntersection(Q2, K2, B2, Q4, K4, B4, X, Y),
@@ -499,12 +510,23 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
     nl
 ).
 
+findIntersection(Q1, K1, B1, Q2, K2, B2, X, Y) :- (
+    { K1*X + Q1*Y + B1 =:= 0 },
+    { K2*X + Q2*Y + B2 =:= 0 }
+).
+findIntersection(Q1, K1, B1, Q2, K2, B2, X, Y, X_, Y_) :- (
+    { K1*X + Q1*Y + B1 =:= 0 },
+    { K2*X + Q2*Y + B2 =:= 0 },
+    roundToFiveDigits(X, X_),
+    roundToFiveDigits(Y, Y_)
+).
+
 round(X,Y,D) :- Z is X * 10^D, round(Z, ZA), Y is ZA / 10^D.
 
 print_list([]).
 print_list([(X, Y)|Rest]) :- (
-    % format('Point: (~6f, ~6f)~n', [X, Y]),
-    format('> (~w, ~w)~n', [X, Y]),
+    % format('> (~51f, ~90f)~n', [X, Y]),
+    format('> (~6f, ~6f)~n', [X, Y]),
     print_list(Rest)
 ).
 
