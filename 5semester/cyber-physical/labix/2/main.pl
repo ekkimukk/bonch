@@ -3,9 +3,27 @@
 
 % https://grafika.me/node/237
 
+/*    findall(
+(X_, Y_),
+(
+(
+member((X, Y), Intersections),
+round(X, X_, 6),
+round(Y, Y_, 6)
+% write(X_),write(" :: "),write(Y_),nl 
+% format("(~f; ~f)", [X_, Y_]), nl
+)
+),
+Final
+),
+print_list(Final),
+
+writeln("-------------------"),
+setof((X, Y), (member((X, Y), Final)), F),
+print_list(F),*/
+:-use_module(library(clpr)).
 /* findall( */
 /*   Point, */
-:-use_module(library(clpr)).
 /*   ( */
 /*     (s(K4, B4, K1, B1, X, Y); true), */
 /*     (s(K4, B4, K2, B2, X, Y); true), */
@@ -19,7 +37,7 @@
 eq((X1, Y1), (X2, Y2), Q, K, B) :- (
   Y1 \= Y2 -> (
     X1 \= X2 -> (
-      Q is -1, 
+      Q is -1,
       K_ is (Y2 - Y1) / (X2 - X1),
       roundToFiveDigits(K_, K),
       B_ is Y1 - K * X1,
