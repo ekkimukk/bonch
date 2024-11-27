@@ -143,12 +143,12 @@ isRectangle((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)) :- (
     (
         V1 is X1 + X3,
         V2 is X2 + X4,
-        writeln(V1),
-        writeln(V2),
+        % writeln(V1),
+        % writeln(V2),
         V3 is Y1 + Y3,
         V4 is Y2 + Y4,
-        writeln(V3),
-        writeln(V4),
+        % writeln(V3),
+        % writeln(V4),
         V1 == V2, V3 == V4
     ); (
         writeln("THIS IS NOT THE RECTANGLE"),
@@ -160,41 +160,41 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
     isRectangle((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)),
 
     eq((X5, Y5), (X6, Y6), Q1, K1, B1),
-    write("First equation  (qy + kx + b = 0) is "), nl,
-    write(Q1),write("*y + "),write(K1),write("*x + "),write(B1),write(" = 0"), nl,
-    % format("y = ~f*x + ~f", [K1, B1]), nl,
-    nl,
+    % write("First equation  (qy + kx + b = 0) is "), nl,
+    % write(Q1),write("*y + "),write(K1),write("*x + "),write(B1),write(" = 0"), nl,
+    % % format("y = ~f*x + ~f", [K1, B1]), nl,
+    % nl,
 
     eq((X6, Y6), (X7, Y7), Q2, K2, B2),
-    write("Second equation (qy + kx + b = 0) is "), nl,
-    write(Q2),write("*y = "),write(K2),write("*x + "),write(B2), nl,
-    nl,
+    % write("Second equation (qy + kx + b = 0) is "), nl,
+    % write(Q2),write("*y = "),write(K2),write("*x + "),write(B2), nl,
+    % nl,
 
     eq((X7, Y7), (X5, Y5), Q3, K3, B3),
-    write("Third equation  (qy + kx + b = 0) is "), nl,
-    write(Q3),write("*y = "),write(K3),write("*x + "),write(B3), nl,
-    write("-------------------------------"),
-    nl,
+    % write("Third equation  (qy + kx + b = 0) is "), nl,
+    % write(Q3),write("*y = "),write(K3),write("*x + "),write(B3), nl,
+    % write("-------------------------------"),
+    % nl,
 
     eq((X1, Y1), (X2, Y2), Q4, K4, B4),
-    write("Fourth equation (qy = kx + b) is "), nl,
-    write(Q4),write("*y = "),write(K4),write("*x + "),write(B4), nl,
-    nl,
+    % write("Fourth equation (qy = kx + b) is "), nl,
+    % write(Q4),write("*y = "),write(K4),write("*x + "),write(B4), nl,
+    % nl,
 
     eq((X2, Y2), (X3, Y3), Q5, K5, B5),
-    write("Fifth equation  (qy = kx + b) is "), nl,
-    write(Q5),write("*y = "),write(K5),write("*x + "),write(B5), nl,
-    nl,
+    % write("Fifth equation  (qy = kx + b) is "), nl,
+    % write(Q5),write("*y = "),write(K5),write("*x + "),write(B5), nl,
+    % nl,
 
     eq((X3, Y3), (X4, Y4), Q6, K6, B6),
-    write("Sixth equation  (qy = kx + b) is "), nl,
-    write(Q6),write("*y = "),write(K6),write("*x + "),write(B6), nl,
-    nl,
+    % write("Sixth equation  (qy = kx + b) is "), nl,
+    % write(Q6),write("*y = "),write(K6),write("*x + "),write(B6), nl,
+    % nl,
 
     eq((X4, Y4), (X1, Y1), Q7, K7, B7),
-    write("Seventh equation  (qy = kx + b) is "), nl,
-    write(Q7),write("*y = "),write(K7),write("*x + "),write(B7), nl,
-    nl,
+    % write("Seventh equation  (qy = kx + b) is "), nl,
+    % write(Q7),write("*y = "),write(K7),write("*x + "),write(B7), nl,
+    % nl,
 
     % % SIDE 1
     % (
@@ -426,7 +426,7 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
     % printList(I11),
     % printList(I12),
 
-    nl,
+    % nl,
 
     findall(
         (X, Y),
@@ -503,8 +503,8 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
         Intersections
     ),
 
-    print_list(Intersections),
-    writeln("-------------------"),
+    % print_list(Intersections),
+    % writeln("-------------------"),
 
     findall(
         (X_, Y_),
@@ -519,11 +519,12 @@ main(((X1, Y1), (X2, Y2), (X3, Y3), (X4, Y4)), ((X5, Y5), (X6, Y6), (X7, Y7))) :
         ),
         Final
     ),
-    print_list(Final),
+    % print_list(Final),
 
-    writeln("-------------------"),
+    writeln("----------------------"),
     setof((X, Y), (member((X, Y), Final)), F),
     print_list(F),
+    writeln("----------------------"),
 
     nl
 ).
