@@ -1,31 +1,10 @@
 module Main where
 import Data.List
-        -- lines = [coeffs points!!0 points!!1, coeffs points!!1 points!!2, coeffs points!!2 points!!3, coeffs points!!3 points!!0,
-                 -- coeffs points!!4 points!!5, coeffs points!!5 points!!6, coeffs points!!6 points!!4]
 
-        -- intersections = [inters (lines!!0) (lines!!4), inters (lines!!0) (lines!!5), inters (lines!!0) (lines!!6),
-        --                  inters (lines!!1) (lines!!4), inters (lines!!1) (lines!!5), inters (lines!!1) (lines!!6),
-        --                  inters (lines!!2) (lines!!4), inters (lines!!2) (lines!!5), inters (lines!!2) (lines!!6),
-        --                  inters (lines!!3) (lines!!4), inters (lines!!3) (lines!!5), inters (lines!!3) (lines!!6)]
-
-main :: IO ()
 main = do
     input <- readFile "test1"
-    let
-        [point1, point2, point3, point4, point5, point6, point7] = map parse (lines input)
-    let
-        lines = [coeffs point1 point2, coeffs point2 point3, coeffs point3 point4, coeffs point4 point1,
-                 coeffs point5 point6, coeffs point6 point7, coeffs point7 point5]
-        intersections = [inters (lines!!i) (lines!!j) | i <- [0..3], j <- [4..6]]
-        intersInRect  = filter (insideRect point1 point2 point3 point4) intersections
-        intersInTrian = filter (insideTrian point5 point6 point7) intersInRect
-        roundedInters = map (roundTo 10) intersInTrian
-    -- print . nub $ roundedInters
+    let [point1, point2, point3, point4, point5, point6, point7] = map parse (lines input)
     print . nub $ map (roundTo 10) (filter (insideTrian point5 point6 point7) (filter (insideRect point1 point2 point3 point4) [inters ([coeffs point1 point2, coeffs point2 point3, coeffs point3 point4, coeffs point4 point1, coeffs point5 point6, coeffs point6 point7, coeffs point7 point5]!!i) ([coeffs point1 point2, coeffs point2 point3, coeffs point3 point4, coeffs point4 point1, coeffs point5 point6, coeffs point6 point7, coeffs point7 point5]!!j) | i <- [0..3], j <- [4..6]]))
-
-roundTo n (x, y) = (rx, ry)
-    where rx = (fromIntegral (round (x * (10^^n))) :: Double) / (10^^n)
-          ry = (fromIntegral (round (y * (10^^n))) :: Double) / (10^^n)
 
 insideRect (x1, y1) (x2, y2) (x3, y3) (x4, y4) (x, y) =
     minX <= x && x <= maxX &&
@@ -56,3 +35,7 @@ coeffs (x1, y1) (x2, y2)
 inters (a1, b1, c1) (a2, b2, c2) = (x, y)
     where x = (b2*c1 - b1*c2)/(a2*b1 - a1*b2)
           y = (a2*c1 - a1*c2)/(a1*b2 - a2*b1)
+roundTo n (x, y) = (rx, ry)
+    where rx = (fromIntegral (round (x * (10^^n))) :: Double) / (10^^n)
+          ry = (fromIntegral (round (y * (10^^n))) :: Double) / (10^^n)
+
