@@ -1,5 +1,5 @@
 .SILENT:
 all:
 	echo "main." > test
-	swipl gpt.pl < test
+	swipl wv.pl < test
 	rm test

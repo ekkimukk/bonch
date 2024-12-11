@@ -1,3 +1,5 @@
+% Copyright (c) 2024 Author. All Rights Reserved.
+
 bitonic_sort([X], [X]).
 bitonic_sort(List, Sorted) :-
     length(List, N),
