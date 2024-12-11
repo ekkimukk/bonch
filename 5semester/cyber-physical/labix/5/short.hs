@@ -6,6 +6,55 @@ main = do
     let [point1, point2, point3, point4, point5, point6, point7] = map parse (lines input)
     print . nub $ map (roundTo 10) (filter (insideTrian point5 point6 point7) (filter (insideRect point1 point2 point3 point4) [inters ([coeffs point1 point2, coeffs point2 point3, coeffs point3 point4, coeffs point4 point1, coeffs point5 point6, coeffs point6 point7, coeffs point7 point5]!!i) ([coeffs point1 point2, coeffs point2 point3, coeffs point3 point4, coeffs point4 point1, coeffs point5 point6, coeffs point6 point7, coeffs point7 point5]!!j) | i <- [0..3], j <- [4..6]]))
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 insideRect (x1, y1) (x2, y2) (x3, y3) (x4, y4) (x, y) =
     minX <= x && x <= maxX &&
     minY <= y && y <= maxY

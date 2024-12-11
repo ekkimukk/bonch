@@ -1,18 +1,12 @@
 module Main where
 import Data.List
-        -- lines = [coeffs points!!0 points!!1, coeffs points!!1 points!!2, coeffs points!!2 points!!3, coeffs points!!3 points!!0,
-                 -- coeffs points!!4 points!!5, coeffs points!!5 points!!6, coeffs points!!6 points!!4]
-
-        -- intersections = [inters (lines!!0) (lines!!4), inters (lines!!0) (lines!!5), inters (lines!!0) (lines!!6),
-        --                  inters (lines!!1) (lines!!4), inters (lines!!1) (lines!!5), inters (lines!!1) (lines!!6),
-        --                  inters (lines!!2) (lines!!4), inters (lines!!2) (lines!!5), inters (lines!!2) (lines!!6),
-        --                  inters (lines!!3) (lines!!4), inters (lines!!3) (lines!!5), inters (lines!!3) (lines!!6)]
 
 main :: IO ()
 main = do
-    input <- readFile "test1"
+    input <- readFile "test3"
     let
-        [point1, point2, point3, point4, point5, point6, point7] = map parse (lines input)
+        points = map parse (lines input)
+        [point1, point2, point3, point4, point5, point6, point7] = points
     let
         lines = [coeffs point1 point2, coeffs point2 point3, coeffs point3 point4, coeffs point4 point1,
                  coeffs point5 point6, coeffs point6 point7, coeffs point7 point5]
@@ -20,8 +14,7 @@ main = do
         intersInRect  = filter (insideRect point1 point2 point3 point4) intersections
         intersInTrian = filter (insideTrian point5 point6 point7) intersInRect
         roundedInters = map (roundTo 10) intersInTrian
-    -- print . nub $ roundedInters
-    print . nub $ map (roundTo 10) (filter (insideTrian point5 point6 point7) (filter (insideRect point1 point2 point3 point4) [inters ([coeffs point1 point2, coeffs point2 point3, coeffs point3 point4, coeffs point4 point1, coeffs point5 point6, coeffs point6 point7, coeffs point7 point5]!!i) ([coeffs point1 point2, coeffs point2 point3, coeffs point3 point4, coeffs point4 point1, coeffs point5 point6, coeffs point6 point7, coeffs point7 point5]!!j) | i <- [0..3], j <- [4..6]]))
+    print . nub $ roundedInters
 
 roundTo n (x, y) = (rx, ry)
     where rx = (fromIntegral (round (x * (10^^n))) :: Double) / (10^^n)
@@ -49,9 +42,9 @@ parse line = (read f, read s)
           s = last p
 
 coeffs (x1, y1) (x2, y2)
-    | y1==y2           = (                  0, -1,                    minimum [y1, y2])
-    | y1/=y2 && x1/=x2 = ((y2 - y1)/(x2 - x1), -1,       y1 - ((y2 - y1)/(x2 - x1))*x1)
-    | y1/=y2 && x1==x2 = (                 -1,  0,                    minimum [x1, x2])
+    | y1 == y2 = (0, -1, minimum [y1, y2])
+    | y1 /= y2 && x1 /= x2 = ((y2 - y1)/(x2 - x1), -1, y1 - ((y2 - y1)/(x2 - x1))*x1)
+    | y1 /= y2 && x1 == x2 = (-1,  0, minimum [x1, x2])
 
 inters (a1, b1, c1) (a2, b2, c2) = (x, y)
     where x = (b2*c1 - b1*c2)/(a2*b1 - a1*b2)
