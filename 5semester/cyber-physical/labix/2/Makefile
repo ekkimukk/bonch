@@ -1,2 +1,2 @@
 all:
-	swipl main.pl < test4.txt
+	swipl main.pl < test13.txt
