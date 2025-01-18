@@ -1,0 +1,61 @@
+
+readMatrix :: FilePath -> IO [[Double]]
+readMatrix filePath = do
+    content <- readFile filePath
+    let linesOfFile = lines content
+    return $ map (map read . words) linesOfFile
+
+printMatrix :: [[Double]] -> IO ()
+printMatrix matrix = mapM_ (putStrLn . unwords . map show) matrix
+
+transposeMatrix :: [[Double]] -> [[Double]]
+transposeMatrix [] = []
+transposeMatrix ([]:_) = []
+transposeMatrix matrix = (map head matrix) : transposeMatrix (map tail matrix)
+
+multiplyMatrices :: [[Double]] -> [[Double]] -> [[Double]]
+multiplyMatrices a b =
+    [[sum (zipWith (*) row col) | col <- transposeMatrix b] | row <- a]
+
+addMatrices  :: (Num a) => [[a]] -> [[a]] -> [[a]]
+addMatrices [] [] = []
+addMatrices (x:xs) (y:ys) = zipWith (+) x y : addMatrices xs ys
+addMatrices _ _ = error "Matrices must have the same dimensions"
+
+-- Функция для нахождения обратной матрицы
+inverseMatrix :: (Fractional a, Eq a) => [[a]] -> [[a]]
+inverseMatrix matrix
+    | not (isSquare matrix) = error "Matrix must be square"
+    | det matrix == 0 = error "Matrix is not invertible (determinant is zero)"
+    | otherwise = map (map (/ det matrix)) (transposeInv (cofactorMatrix matrix))
+-- Функция для вычисления определителя матрицы
+det :: (Num a) => [[a]] -> a
+det [[x]] = x
+det matrix
+    | not (isSquare matrix) = error "Matrix must be square"
+    | otherwise = sum [ (-1)^i * (head matrix !! i) * det (removeRowCol matrix 0 i) | i <- [0..n-1] ]
+  where
+    n = length matrix
+-- Функция для вычисления матрицы алгебраических дополнений
+cofactorMatrix :: (Num a) => [[a]] -> [[a]]
+cofactorMatrix matrix =
+    [ [ (-1)^(i+j) * det (removeRowCol matrix i j) | j <- [0..n-1] ] | i <- [0..n-1] ]
+  where
+    n = length matrix
+-- Функция для удаления строки и столбца
+removeRowCol :: [[a]] -> Int -> Int -> [[a]]
+removeRowCol matrix i j =
+    [ [ matrix !! x !! y | y <- [0..n-1], y /= j ] | x <- [0..n-1], x /= i ]
+  where
+    n = length matrix
+-- Функция для транспонирования матрицы
+transposeInv :: [[a]] -> [[a]]
+transposeInv ([]:_) = []
+transposeInv xss = map head xss : transposeInv (map tail xss)
+-- Проверка, является ли матрица квадратной
+isSquare :: [[a]] -> Bool
+isSquare matrix = all (\row -> length row == n) matrix
+  where
+    n = length matrix
+
+

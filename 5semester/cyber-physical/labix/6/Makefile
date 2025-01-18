@@ -1,0 +1,2 @@
+all:
+	runhaskell alena.hs
