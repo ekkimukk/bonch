@@ -1,2 +1,2 @@
 all:
-	runhaskell alena.hs
+	runhaskell main.hs

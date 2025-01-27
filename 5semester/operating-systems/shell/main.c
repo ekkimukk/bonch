@@ -8,6 +8,9 @@
 #define TOK_BUFSIZE 64
 #define TOK_DELIM " \t\r\n\a"
 
+for (int i = 0; i < 24; ++i) {
+}
+
 char*
 read_line(void)
 {

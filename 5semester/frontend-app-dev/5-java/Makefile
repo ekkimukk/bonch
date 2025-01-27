@@ -1,15 +1,7 @@
-sources = Main.java
-exec = Main
-path = /var/www/mysite.com
-
 .SILENT:
-all: main
+all:
+	cd groshi && mvn clean package && cd ..
+	sudo cp ./groshi/target/groshi.war /var/tomcat/webapps/groshi.war
 
-main:
-	javac $(sources)
-	# cp * $(path)/
-	java $(exec)
-	rm -rf *.class
-
-clean:
-	rm -rf $(path)/*.class *.class
+enter_db:
+	mariadb -u expense_user -p # password

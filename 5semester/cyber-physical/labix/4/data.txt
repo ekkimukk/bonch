@@ -1,2 +1,30 @@
-wine("","","","").
-wine("1","qwert","sdfg","cvn").
+wine("1","Tempranillo","2019","Spain").  
+wine("2","Merlot","2020","France").  
+wine("3","Cabernet Sauvignon","2018","USA").  
+wine("4","Pinot Noir","2021","New Zealand").  
+wine("5","Sangiovese","2017","Italy").  
+wine("6","Malbec","2019","Argentina").  
+wine("7","Zinfandel","2020","USA").  
+wine("8","Shiraz","2018","Australia").  
+wine("9","Garnacha","2021","Spain").  
+wine("10","Barbera","2019","Italy").  
+wine("11","Nebbiolo","2020","Italy").  
+wine("12","Carménère","2018","Chile").  
+wine("13","Tannat","2019","Uruguay").  
+wine("14","Blaufränkisch","2021","Austria").  
+wine("15","Montepulciano","2017","Italy").  
+wine("16","Cinsault","2020","South Africa").  
+wine("17","Mourvèdre","2019","France").  
+wine("18","Alicante Bouschet","2018","Portugal").  
+wine("19","Nero d'Avola","2021","Italy").  
+wine("20","Primitivo","2019","Italy").  
+wine("21","Château Margaux","2015","France").  
+wine("22","Sassicaia","2016","Italy").  
+wine("23","Penfolds Grange","2017","Australia").  
+wine("24","Vega Sicilia Unico","2012","Spain").  
+wine("25","Domaine de la Romanée-Conti","2018","France").  
+wine("26","Château Lafite Rothschild","2015","France").  
+wine("27","Ornellaia","2019","Italy").  
+wine("28","Screaming Eagle","2018","USA").  
+wine("29","Château Petrus","2016","France").  
+wine("30","Gaja Barbaresco","2019","Italy").  

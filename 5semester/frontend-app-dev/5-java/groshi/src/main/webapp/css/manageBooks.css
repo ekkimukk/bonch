@@ -1,0 +1,196 @@
+body {
+  font-family: "EB Garamond";
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh; */
+   margin: 0;
+  background-color: #fbf1c7;
+  color: #282828;
+}
+
+/* .container { */
+/*   background: #f2e5bc; */
+/*   border-radius: 8px;  */
+/*   box-shadow: 0px 4px 10px rgba(242, 229, 188, 1); */
+/*   padding: 40px;       */
+/*   width: 300px;        */
+/* } */
+
+.container {
+  width: 300px;
+}
+
+input {
+  width: 92%;
+  max-width: 92%;
+  padding: 10px;
+  margin: 0px 0;
+  border: 2px solid #282828;
+  border-radius: 5px;
+  font-family: "EB Garamond";
+  font-size: 16px;
+  color: #282828;
+  background-color: #fbf1c7;
+}
+
+#cardID {
+    width: 33px;
+    font-size: 10px;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #282828;
+}
+
+.footer {
+  position: fixed;
+  bottom: 5px;
+  right: 10px;
+  font-size: 10px;
+  color: #282828;
+  font-family: "EB Garamond";
+}
+
+.footer p {
+  margin: 0;
+}
+
+table tbody tr {
+    border-bottom: 1px solid #282828;
+}
+/* Добавление отступов внутри ячеек для более приятного отображения */
+table td {
+    padding: 5px;
+    text-align: center;
+}
+/* Если хотите, чтобы таблица выглядела более аккуратно */
+table {
+    border-collapse: collapse; /* Убирает лишние промежутки между границами */
+    width: 100%; /* Таблица занимает всю ширину */
+}
+/* Стили для заголовков таблицы */
+table thead th {
+    text-align: center;
+    padding: 5px;
+}
+
+table input {
+    height: 10px;
+}
+
+.button-56 {
+  font-family: "EB Garamond";
+  align-items: center;
+  /* background-color: #fee6e3; */
+  border: 2px solid #282828;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #282828;
+  cursor: pointer;
+  display: flex;
+  font-size: 16px;
+  height: 48px;
+  justify-content: center;
+  line-height: 24px;
+  width: 300px;
+  max-width: 100%;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-56:after {
+  background-color: #282828;
+  border-radius: 8px;
+  content: "";
+  display: block;
+  height: 48px;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  top: -2px;
+  transform: translate(8px, 8px);
+  transition: transform .2s ease-out;
+  z-index: -1;
+}
+
+.button-56:hover:after {
+  transform: translate(0, 0);
+}
+
+.button-56:active {
+  /* background-color: #ffdeda; */
+  outline: 0;
+}
+
+.button-56:hover {
+  outline: 0;
+}
+
+@media (min-width: 768px) {
+  .button-56 {
+    padding: 0 40px;
+  }
+}
+
+#button-add {
+  background-color: #8ec07c;
+}
+#button-add:active {
+  background-color: #689d6a;
+}#button-show {
+  background-color: #fe8019;
+}
+#button-show:active {
+  background-color: #d65d0e;
+}
+
+
+/* CSS */
+.button-89 {
+  font-family: "EB Garamond";
+  border-radius: 8px;
+  --b: 2px;   /* border thickness */
+  --s: .45em; /* size of the corner */
+  --color: #282828;
+  
+  padding: calc(.5em + var(--s)) calc(.9em + var(--s));
+  color: var(--color);
+  --_p: var(--s);
+  background:
+    conic-gradient(from 90deg at var(--b) var(--b),#0000 90deg,var(--color) 0)
+    var(--_p) var(--_p)/calc(100% - var(--b) - 2*var(--_p)) calc(100% - var(--b) - 2*var(--_p));
+  transition: .2s linear, color 0s, background-color 0s;
+  outline: var(--b) solid #0000;
+  outline-offset: .6em;
+  font-size: 16px;
+
+  border: 0;
+
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-89:hover,
+.button-89:focus-visible{
+  border-radius: 8px;
+  --_p: 0px;
+  outline-color: var(--color);
+  outline-offset: .05em;
+}
+
+.button-89:active {
+  border-radius: 8px;
+  background: var(--color);
+  color: #fbf1c7;
+}
+

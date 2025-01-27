@@ -1,0 +1,14 @@
+[Unit]
+Description=User Management Service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/home/k/script.sh
+Restart=on-failure
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
+

@@ -91,11 +91,15 @@ add :-
     read_string(user_input, "\n", "\t", End, Name), nl,
     write("> Enter the year of production of the wine: "), nl,
     read_string(user_input, "\n", "\t", End, Year), nl,
+    atom_number(Year, IntYear),
+    IntYear >= 0,
     write("> Enter the region where the wine was produced: "), nl,
     read_string(user_input, "\n", "\t", End, Region), nl,
     assertz(wine(ID, Name, Year, Region)),
     write('> Wine added successfully!'), nl,
-    nl.
+    nl;
+    write("> Invalid option. Try again."), nl,
+    menu.
 
 edit_ :-
     write("> Enter the ID of the entry you want to edit: "), nl,
